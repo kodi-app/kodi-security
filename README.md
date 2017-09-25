@@ -1,6 +1,6 @@
 # KodiApp-Security
 
-This repository contains different Security implementation for KodiApp.
+This repository contains Security implementation for KodiApp.
 
 ## Installation
 

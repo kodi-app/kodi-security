@@ -20,8 +20,7 @@
     "require": {
         "php": "^7.1",
         "kodi-app/kodi-core": "v0.9.*",
-        "kodi-app/kodi-session": "v0.9.*",
-        "nagyatka/pandabase": "v0.20.*"
+        "kodi-app/kodi-session": "v0.9.*"
 
     },
     "require-dev": {
