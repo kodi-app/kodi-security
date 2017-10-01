@@ -93,6 +93,33 @@ class SecurityManager
     }
 
     /**
+     * @return int
+     */
+    public function getUserId(): ?int {
+        // Get session
+        $securitySession = $this->getSecuritySession();
+
+        // If there's no security session in PHP session we assume that it is an AnonymUser
+        if(!$securitySession) {
+            return -1;
+        }
+
+        // Status and expiration time check
+        if($securitySession[self::SESS_LOGGED_IN] === true &&
+            (time() - $securitySession[self::SESS_UPDATED_AT] > $this->expiration_time)) {
+            $newUser = new AnonymUser();
+            $this->setSecuritySession(false, time(), $newUser->getUserId(), $newUser->getUsername(), $newUser->getRoles());
+            return -1;
+        }
+        else {
+            // Refresh updated_at value
+            $securitySession[self::SESS_UPDATED_AT] = time();
+            $this->setSecuritySessionFromArray($securitySession);
+            return  $securitySession[self::SESS_USER_ID];
+        }
+    }
+
+    /**
      * @param AuthenticationRequest $request
      * @return AuthenticationTaskResult
      * @throws HttpAccessDeniedException

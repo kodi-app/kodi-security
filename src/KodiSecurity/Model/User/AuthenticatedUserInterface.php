@@ -66,10 +66,10 @@ interface AuthenticatedUserInterface
     public static function getUserByEmail(string $email): AuthenticatedUserInterface;
 
     /**
-     * @param int $user
+     * @param int $user_id
      * @param string $username
      * @param array $roles
      * @return AuthenticatedUserInterface
      */
-    public static function getUserFromSecuritySession(int $user, string $username, array $roles): AuthenticatedUserInterface;
+    public static function getUserFromSecuritySession(int $user_id, string $username, array $roles): AuthenticatedUserInterface;
 }
