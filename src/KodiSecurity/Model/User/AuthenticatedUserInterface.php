@@ -1,6 +1,6 @@
 <?php
 
-namespace KodiSecurity\Model;
+namespace KodiSecurity\Model\User;
 
 /**
  * Interface UserInterface
@@ -71,5 +71,5 @@ interface AuthenticatedUserInterface
      * @param array $roles
      * @return AuthenticatedUserInterface
      */
-    public static function getUserFromSecuritySession(int $user_id, string $username, array $roles): AuthenticatedUserInterface;
+    public static function getUserFromSecuritySession(?int $user_id, ?string $username, ?array $roles): AuthenticatedUserInterface;
 }

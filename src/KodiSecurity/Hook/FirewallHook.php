@@ -14,9 +14,9 @@ use KodiCore\Core\KodiConf;
 use KodiCore\Exception\Http\HttpAccessDeniedException;
 use KodiCore\Hook\HookInterface;
 use KodiCore\Request\Request;
-use KodiSecurity\Model\Role;
 use KodiSecurity\Model\SecurityManager;
-use KodiSecurity\Model\AuthenticatedUserInterface;
+use KodiSecurity\Model\User\AuthenticatedUserInterface;
+use KodiSecurity\Model\User\Role;
 
 /**
  * Class FirewallHook

@@ -6,7 +6,7 @@
  * Time: 10:43
  */
 
-namespace KodiSecurity\Model;
+namespace KodiSecurity\Model\User;
 
 
 class PendingUser

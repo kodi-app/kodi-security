@@ -6,7 +6,7 @@
  * Time: 10:03
  */
 
-namespace KodiSecurity\Model;
+namespace KodiSecurity\Model\User;
 
 
 class AnonymUser implements AuthenticatedUserInterface
@@ -66,7 +66,7 @@ class AnonymUser implements AuthenticatedUserInterface
         return new AnonymUser();
     }
 
-    public static function getUserFromSecuritySession(int $user, string $username, string $password, array $roles): AuthenticatedUserInterface
+    public static function getUserFromSecuritySession(?int $user_id, ?string $username, ?array $roles): AuthenticatedUserInterface
     {
         return new AnonymUser();
     }

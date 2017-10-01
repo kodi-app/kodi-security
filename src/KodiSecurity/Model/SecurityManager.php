@@ -15,6 +15,8 @@ use KodiCore\Exception\Http\HttpInternalServerErrorException;
 use KodiSecurity\Model\Authentication\AuthenticationInterface;
 use KodiSecurity\Model\Authentication\AuthenticationRequest;
 use KodiSecurity\Model\Authentication\AuthenticationTaskResult;
+use KodiSecurity\Model\User\AnonymUser;
+use KodiSecurity\Model\User\AuthenticatedUserInterface;
 use KodiSession\Session;
 
 class SecurityManager
@@ -137,12 +139,8 @@ class SecurityManager
                     $user = $authenticationResult->getResult();
                     // Save variables in session
                     $this->setSecuritySession(true, time(), $user->getUserId(), $user->getUsername(), $user->getRoles());
-                    return $authenticationResult;
                 }
-                else {
-                    throw new HttpAccessDeniedException();
-                }
-                break;
+                return $authenticationResult;
 
             /*
              * Handle register request
@@ -152,15 +150,8 @@ class SecurityManager
                 if($this->getSecuritySession()[self::SESS_LOGGED_IN]) {
                     throw new HttpAccessDeniedException("ALREADY_LOGGED_IN");
                 }
-
                 $authenticationResult = $authentication->register($request->getCredentials());
-                if($authenticationResult->isSuccess()) {
-                    return $authenticationResult;
-                }
-                else {
-                    throw new HttpAccessDeniedException();
-                }
-                break;
+                return $authenticationResult;
 
             /*
              * Handle deregister request
@@ -244,7 +235,7 @@ class SecurityManager
      * @param array $roles
      * @throws HttpInternalServerErrorException
      */
-    private function setSecuritySession(bool $logged_in,int $updated_at, int $user_id, string $username, array $roles) {
+    private function setSecuritySession(bool $logged_in, int $updated_at, ?int $user_id, ?string $username, ?array $roles) {
         /** @var Session $session */
         $session = Application::get("session");
         if($session) {
@@ -275,6 +266,9 @@ class SecurityManager
         if(!$this->authentication) {
             $authenticationClassName = $this->authenticationConfiguration["class_name"];
             $params = $this->authenticationConfiguration["parameters"];
+            $params = array_merge($params,[
+                "user_class_name" => $this->userClassName
+            ]);
             $this->authentication = new $authenticationClassName($params);
         }
         return $this->authentication;

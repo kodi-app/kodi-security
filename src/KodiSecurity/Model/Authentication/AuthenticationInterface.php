@@ -2,7 +2,7 @@
 
 namespace KodiSecurity\Model\Authentication;
 
-use KodiSecurity\Model\AuthenticatedUserInterface;
+use KodiSecurity\Model\User\AuthenticatedUserInterface;
 
 abstract class AuthenticationInterface
 {
